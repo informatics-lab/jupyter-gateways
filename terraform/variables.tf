@@ -12,3 +12,6 @@ variable "prototype_state_file" {
   default = "/dev/dev.tfstate"
 }
 
+variable "aws_dns_zone_id" {
+  default = "Z3USS9SVLB2LY1"
+}

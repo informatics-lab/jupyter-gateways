@@ -1,2 +1,5 @@
 # intellij
-.idea/*
+.idea/
+
+# terraform
+**.terraform/
