@@ -4,5 +4,12 @@ Config for setting up a Dashboard server and an API Gateway for Jupyter notebook
 
 ## Getting started
 
+### Local (Docker Compose)
+
+- Define local DNS entries in /etc/hosts for dashboards and api (e.g. dashboards.local, api.local)
+- Run docker-compose up in ./docker/
+
+### Remote (Terraform)
+
 - Ensure ./terraform/variables.tf is correct for your environment.
 - Run ./terraform/env-dev/init.sh to set up Terraform remote state management 
