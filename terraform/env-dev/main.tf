@@ -57,10 +57,12 @@ resource "aws_instance" "jupyter_gateways" {
       "sudo curl -L \"https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo service docker start",
-      "cd ~/jupyter_gateways && sudo /usr/local/bin/docker-compose up -d"
+      "export API_DNS=${var.api_dns}",
+      "export DASHBOARD_DNS=${var.dashboards_dns}",
+      "cd ~/jupyter_gateways && sudo -E /usr/local/bin/docker-compose up -d"
     ]
   }
-  
+ 
   tags {
     Name = "${var.environment}_jupyter_gateways"
     environoment = "dev"
