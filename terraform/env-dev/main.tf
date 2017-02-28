@@ -31,10 +31,16 @@ resource "aws_security_group_rule" "http_incoming" {
 resource "aws_instance" "jupyter_gateways" {
   # Amazon ECS optimised ami
   ami = "ami-9398d3e0"
-  instance_type = "t2.micro"
+  instance_type = "m3.xlarge"
   
   key_name = "gateway"
   security_groups = ["default", "${aws_security_group.jupyter_gateways.name}"]
+
+  root_block_device = {
+    volume_size = 40
+  }
+
+  iam_instance_profile = "jade-secrets"
 
   connection {
     type = "ssh"
@@ -54,6 +60,9 @@ resource "aws_instance" "jupyter_gateways" {
     inline = [
       "sudo yum update -y",
       "sudo yum install -y docker",
+      "sudo mkdir /opt/data && sudo chown ec2-user /opt/data",
+      "mkdir /opt/data/maximum-temperature && aws s3 cp --recursive s3://ncic/gridded-land-obs-daily/grid/netcdf/maximum-temperature/ /opt/data/maximum-temperature",
+      "mkdir /opt/data/rainfall && aws s3 cp --recursive s3://ncic/gridded-land-obs-daily/grid/netcdf/rainfall/ /opt/data/rainfall",
       "sudo curl -L \"https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo service docker start",

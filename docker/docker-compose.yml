@@ -6,19 +6,22 @@ services:
             - "80:80"
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
-    kernel-websocket:
-        build: ./kernel_websocket
-    dashboard:
-        build: ./dashboard
-        environment:
-            - VIRTUAL_HOST=${DASHBOARD_DNS}
-            - NOTEBOOKS_DIR=/opt/notebooks
-            - KERNEL_GATEWAY_URL=http://kernel-websocket:8888/
-        volumes:
-            - "./dashboard_notebooks:/opt/notebooks"
+#    kernel-websocket:
+#        build: ./kernel_websocket
+#        volumes:
+#          - "/Users/alex/informatics/iris/hack:/opt/data"
+#    dashboard:
+#        build: ./dashboard
+#        environment:
+#            - VIRTUAL_HOST=${DASHBOARD_DNS}
+#            - NOTEBOOKS_DIR=/opt/notebooks
+#            - KERNEL_GATEWAY_URL=http://kernel-websocket:8888/
+#        volumes:
+#            - "./dashboard_notebooks:/opt/notebooks"
     kernel-http-api:
         build: ./kernel_http_api
         volumes:
             - "./api_notebooks:/opt/notebooks"
+            - "/opt/data:/opt/data"
         environment:
             - VIRTUAL_HOST=${API_DNS}

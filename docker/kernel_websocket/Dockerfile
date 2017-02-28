@@ -28,6 +28,7 @@ RUN conda install -y matplotlib
 
 RUN pip install jupyter_kernel_gateway
 
+RUN conda install -y -c scitools iris 
 EXPOSE 8888
 
 CMD jupyter kernelgateway --KernelGatewayApp.ip=0.0.0.0 
