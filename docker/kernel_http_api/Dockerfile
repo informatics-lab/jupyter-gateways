@@ -8,6 +8,7 @@ USER jupyter
 
 RUN pip install jupyter_kernel_gateway
 RUN conda install -y -c scitools iris
+RUN conda install -y boto3
 EXPOSE 8888
 
 CMD jupyter kernelgateway --KernelGatewayApp.ip=0.0.0.0 --KernelGatewayApp.port=8888 --KernelGatewayApp.api=kernel_gateway.notebook_http --KernelGatewayApp.seed_uri=/opt/notebooks/helloworld.ipynb
